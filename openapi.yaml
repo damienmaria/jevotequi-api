@@ -1,0 +1,422 @@
+openapi: 3.1.0
+
+info:
+  title: Jevotequi API
+  version: 1.0.0
+  description: |
+    Political data and matching for Jevotequi.
+
+    The rules this API implements are in
+    `jevotequi-docs/guideline/guideline-ai.md`. Section references below point
+    there.
+
+    Two properties of this contract are not incidental:
+
+    - **`score_milli` is an integer** in tenths of a percent, `[0, 1000]`.
+      Ranking and ties are decided on it, by this API (§21, §24). A client
+      displays `score_milli / 10` and must not re-round or re-sort.
+    - **A score never travels without its coverage** (§43). A candidate with no
+      usable question carries `comparable: false` and a reason, never a score
+      of zero.
+
+servers:
+  - url: http://localhost:3001
+    description: Local development
+
+paths:
+  /health:
+    get:
+      summary: Liveness probe
+      description: Exposes no political data version, no counts, no configuration (§47).
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [status]
+                properties:
+                  status: { type: string, const: ok }
+
+  /api/v1/elections:
+    get:
+      summary: List elections
+      responses:
+        '200':
+          description: OK
+          headers:
+            Cache-Control: { schema: { type: string, const: 'public, max-age=300' } }
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [elections]
+                properties:
+                  elections:
+                    type: array
+                    items: { $ref: '#/components/schemas/ElectionSummary' }
+
+  /api/v1/elections/{id}:
+    get:
+      summary: Get one election
+      description: |
+        The inclusion criterion travels with the election, so a client cannot
+        display candidates without being able to state how they were chosen
+        (§9, §44).
+      parameters: [{ $ref: '#/components/parameters/ElectionId' }]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Election' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /api/v1/elections/{id}/themes:
+    get:
+      summary: List active themes, in display order
+      parameters: [{ $ref: '#/components/parameters/ElectionId' }]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [themes]
+                properties:
+                  themes:
+                    type: array
+                    items: { $ref: '#/components/schemas/Theme' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /api/v1/elections/{id}/questions:
+    get:
+      summary: List active questions
+      parameters: [{ $ref: '#/components/parameters/ElectionId' }]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [questions]
+                properties:
+                  questions:
+                    type: array
+                    items: { $ref: '#/components/schemas/Question' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /api/v1/elections/{id}/candidates:
+    get:
+      summary: List candidates in the neutral default order
+      description: |
+        Served already ordered: the official order published by the authority,
+        alphabetical where none exists (§24). The client has nothing to decide
+        and must not re-sort.
+
+        Candidates with `inclusion_status: listed_without_data` are included.
+        Omitting them is prohibited (§9).
+      parameters: [{ $ref: '#/components/parameters/ElectionId' }]
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [candidates]
+                properties:
+                  candidates:
+                    type: array
+                    items: { $ref: '#/components/schemas/Candidate' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /api/v1/matching:
+    post:
+      summary: Compare a set of answers with the documented candidate positions
+      description: |
+        The request body carries political opinions, a special category of
+        personal data under GDPR article 9. It is computed in memory and
+        returned. It is never persisted, never logged — including in error
+        logs and stack traces — and never correlated with an IP address, a
+        session or a cookie (§32, §47).
+
+        The response is `Cache-Control: no-store` at every layer.
+
+        Errors name the field, never the submitted value (§26).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/MatchingRequest' }
+      responses:
+        '200':
+          description: OK
+          headers:
+            Cache-Control: { schema: { type: string, const: no-store } }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/MatchingResult' }
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Error' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+components:
+  parameters:
+    ElectionId:
+      name: id
+      in: path
+      required: true
+      schema: { type: string }
+
+  responses:
+    NotFound:
+      description: Unknown resource
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/Error' }
+
+  schemas:
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code]
+          properties:
+            code: { type: string }
+            field:
+              type: string
+              description: Path of the offending field. Never carries a submitted value.
+
+    ElectionSummary:
+      type: object
+      required: [id, slug, name, country, election_type, election_date, status, fictional]
+      properties:
+        id: { type: string }
+        slug: { type: string }
+        name: { type: string }
+        country: { type: string, minLength: 2, maxLength: 2 }
+        election_type: { type: string }
+        election_date: { type: string, format: date }
+        status: { type: string, enum: [draft, open, closed] }
+        fictional:
+          type: boolean
+          description: True for demonstration data. Clients must say so in the interface.
+
+    Election:
+      type: object
+      required: [id, name, election_date, status, fictional, inclusion_criterion, answer_scale]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        election_date: { type: string, format: date }
+        status: { type: string, enum: [draft, open, closed] }
+        fictional: { type: boolean }
+        inclusion_criterion:
+          type: object
+          required: [rule, decided_on, published]
+          properties:
+            rule: { type: string }
+            decided_on: { type: string, format: date }
+            published: { type: boolean }
+            note: { type: string }
+        answer_scale:
+          type: object
+          required: [min, max, labels, skip_label]
+          properties:
+            min: { type: integer, const: -2 }
+            max: { type: integer, const: 2 }
+            labels:
+              type: object
+              additionalProperties: { type: string }
+            skip_label: { type: string }
+
+    Theme:
+      type: object
+      required: [id, name, display_order]
+      properties:
+        id: { type: string }
+        name: { type: string }
+        display_order: { type: integer, minimum: 1 }
+
+    Question:
+      type: object
+      required: [id, theme_id, text, display_order]
+      properties:
+        id: { type: string }
+        theme_id: { type: string }
+        text: { type: string }
+        display_order: { type: integer, minimum: 1 }
+
+    Candidate:
+      type: object
+      required: [id, display_name, official_order, inclusion_status]
+      properties:
+        id: { type: string }
+        display_name: { type: string }
+        official_order:
+          type: [integer, 'null']
+          description: Order published by the authority. Never used as a tie-breaker (§24).
+        inclusion_status:
+          type: string
+          enum: [included, listed_without_data]
+
+    MatchingRequest:
+      type: object
+      required: [election_id, answers]
+      properties:
+        election_id: { type: string }
+        answers:
+          type: array
+          minItems: 1
+          items:
+            oneOf:
+              - type: object
+                required: [question_id, value]
+                properties:
+                  question_id: { type: string }
+                  value:
+                    type: integer
+                    minimum: -2
+                    maximum: 2
+              - type: object
+                description: |
+                  A skipped question. Not a neutral answer: it is excluded from
+                  the calculation for every candidate (§13).
+                required: [question_id, skipped]
+                properties:
+                  question_id: { type: string }
+                  skipped: { type: boolean, const: true }
+        theme_weights:
+          type: array
+          description: |
+            Integer basis points summing to exactly 10000. Tolerance is zero:
+            the interface is responsible for producing a valid allocation (§15).
+
+            Omit the field entirely for equal weights. Do not send an even
+            split — 10000 does not divide evenly by every theme count, and the
+            engine's default is exact where a basis-point split would not be.
+          items:
+            type: object
+            required: [theme_id, weight_bp]
+            properties:
+              theme_id: { type: string }
+              weight_bp: { type: integer, minimum: 0, maximum: 10000 }
+
+    Coverage:
+      type: object
+      description: |
+        Never optional. A score displayed without its coverage is a neutrality
+        defect, not a styling choice (§43).
+      required: [answered, documented, used, by_theme]
+      properties:
+        answered:
+          type: integer
+          description: Questions the user answered. Skipped ones excluded.
+        documented:
+          type: integer
+          description: |
+            Of those, how many the candidate has a confirmed position for.
+            `uncertain` and `not_available` both count as undocumented (§42).
+        used:
+          type: integer
+          description: Of those, how many carried non-zero weight and entered the score.
+        by_theme:
+          type: array
+          items:
+            type: object
+            required: [theme_id, answered, documented]
+            properties:
+              theme_id: { type: string }
+              answered: { type: integer }
+              documented: { type: integer }
+
+    ThemeBreakdown:
+      type: object
+      required: [theme_id, score_milli, weight_bp, answered, documented]
+      properties:
+        theme_id: { type: string }
+        score_milli:
+          type: [integer, 'null']
+          description: Null when no usable question remained in this theme.
+        weight_bp: { type: integer }
+        answered: { type: integer }
+        documented: { type: integer }
+
+    CandidateResult:
+      oneOf:
+        - $ref: '#/components/schemas/ComparableResult'
+        - $ref: '#/components/schemas/NotComparableResult'
+      discriminator:
+        propertyName: comparable
+
+    ComparableResult:
+      type: object
+      required: [candidate_id, comparable, rank, score_milli, coverage, themes]
+      properties:
+        candidate_id: { type: string }
+        comparable: { type: boolean, const: true }
+        rank:
+          type: integer
+          minimum: 1
+          description: |
+            Competition ranking. Tied candidates share a rank and the next
+            distinct score skips the ranks consumed by the tie (1, 2, 2, 4).
+            Within a tie, order is alphabetical on the candidate's normalized
+            name — never on the id (§24).
+        score_milli:
+          type: integer
+          minimum: 0
+          maximum: 1000
+          description: Tenths of a percent. Display as `score_milli / 10`; do not re-round.
+        coverage: { $ref: '#/components/schemas/Coverage' }
+        themes:
+          type: array
+          items: { $ref: '#/components/schemas/ThemeBreakdown' }
+
+    NotComparableResult:
+      type: object
+      required: [candidate_id, comparable, reason, coverage, themes]
+      properties:
+        candidate_id: { type: string }
+        comparable: { type: boolean, const: false }
+        reason:
+          type: string
+          enum: [no_documented_position, no_usable_question]
+          description: |
+            `no_documented_position` — nothing was documented for this candidate.
+            `no_usable_question` — positions exist, but the user's priorities
+            gave them no weight.
+        coverage: { $ref: '#/components/schemas/Coverage' }
+        themes:
+          type: array
+          items: { $ref: '#/components/schemas/ThemeBreakdown' }
+
+    MatchingResult:
+      type: object
+      required: [engine_version, election_id, program_versions, results]
+      properties:
+        engine_version:
+          type: string
+          description: |
+            A result is only reproducible for a given engine version and set of
+            program versions (§21).
+        election_id: { type: string }
+        program_versions:
+          type: array
+          items: { type: string }
+        results:
+          type: array
+          description: |
+            Already ordered: comparable candidates by descending score, then
+            the ones without a score. Clients render this order as received
+            (§24, §28).
+          items: { $ref: '#/components/schemas/CandidateResult' }
