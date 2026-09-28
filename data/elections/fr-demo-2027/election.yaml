@@ -1,0 +1,39 @@
+# Demonstration election.
+#
+# Every candidate, program and quote in this directory is FICTIONAL. It exists
+# to exercise the matching engine, the API and the interface with data shaped
+# like the real thing. No statement here is attributable to any real person or
+# party.
+#
+# Guideline §9: the inclusion criterion is published with the election, before
+# any political data is collected.
+
+id: fr-demo-2027
+slug: fr-demo-2027
+name: Élection de démonstration 2027
+country: FR
+election_type: presidential
+election_date: 2027-04-11
+status: draft
+fictional: true
+
+inclusion_criterion:
+  rule: >-
+    Tous les candidats officiellement enregistrés par l'autorité compétente.
+  decided_on: 2026-09-28
+  published: true
+  note: >-
+    Critère fictif pour l'élection de démonstration. Il illustre la forme
+    attendue : objectif, vérifiable par un tiers, identique pour tous, arrêté
+    avant la collecte des données.
+
+answer_scale:
+  min: -2
+  max: 2
+  labels:
+    -2: Pas du tout d'accord
+    -1: Plutôt pas d'accord
+    0: Neutre
+    1: Plutôt d'accord
+    2: Tout à fait d'accord
+  skip_label: Sans opinion

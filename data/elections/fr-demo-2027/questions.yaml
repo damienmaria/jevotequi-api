@@ -1,0 +1,253 @@
+# Guideline §11 and §12.
+#
+# Every question carries its neutrality review. The four tests are:
+#   symmetry      — both "agree" and "disagree" are defensible positions
+#   vocabulary    — wording from the public debate, not from one side
+#   single_issue  — asks exactly one thing
+#   answerability — every included candidate could hold a position on it
+#
+# §12 degraded mode: reviewed by the author at least 24 hours later, then
+# opened to public comment before the election opens. `public_review_mr` is
+# filled when that merge request exists.
+
+- id: eco-1
+  theme_id: economie
+  display_order: 1
+  text: Faut-il réduire le niveau global des dépenses publiques ?
+  active: true
+  neutrality_review: &review
+    by: dm
+    date: 2026-09-28
+    tests: [symmetry, vocabulary, single_issue, answerability]
+    public_review_mr: null
+
+- id: eco-2
+  theme_id: economie
+  display_order: 2
+  text: Faut-il augmenter l'imposition des plus hauts revenus ?
+  active: true
+  neutrality_review: *review
+
+- id: eco-3
+  theme_id: economie
+  display_order: 3
+  text: Faut-il alléger les cotisations sociales payées par les entreprises ?
+  active: true
+  neutrality_review: *review
+
+- id: eco-4
+  theme_id: economie
+  display_order: 4
+  text: Faut-il inscrire dans la loi une règle limitant le déficit public ?
+  active: true
+  neutrality_review: *review
+
+- id: pa-1
+  theme_id: pouvoir-achat
+  display_order: 1
+  text: Faut-il augmenter le salaire minimum légal ?
+  active: true
+  neutrality_review: *review
+
+- id: pa-2
+  theme_id: pouvoir-achat
+  display_order: 2
+  text: Faut-il conditionner le versement des minima sociaux à une activité ?
+  active: true
+  neutrality_review: *review
+
+- id: pa-3
+  theme_id: pouvoir-achat
+  display_order: 3
+  text: Faut-il relever l'âge légal de départ à la retraite ?
+  active: true
+  neutrality_review: *review
+
+- id: pa-4
+  theme_id: pouvoir-achat
+  display_order: 4
+  text: Faut-il encadrer les loyers sur l'ensemble du territoire ?
+  active: true
+  neutrality_review: *review
+
+- id: env-1
+  theme_id: environnement
+  display_order: 1
+  text: Faut-il construire de nouveaux réacteurs nucléaires ?
+  active: true
+  neutrality_review: *review
+
+- id: env-2
+  theme_id: environnement
+  display_order: 2
+  text: Faut-il accélérer le développement de l'éolien terrestre ?
+  active: true
+  neutrality_review: *review
+
+- id: env-3
+  theme_id: environnement
+  display_order: 3
+  text: >-
+    Faut-il interdire la vente de véhicules thermiques neufs à l'horizon 2035 ?
+  active: true
+  neutrality_review: *review
+
+- id: env-4
+  theme_id: environnement
+  display_order: 4
+  text: Faut-il taxer les importations en fonction de leur empreinte carbone ?
+  active: true
+  neutrality_review: *review
+
+- id: sec-1
+  theme_id: securite
+  display_order: 1
+  text: Faut-il augmenter le nombre de policiers présents sur la voie publique ?
+  active: true
+  neutrality_review: *review
+
+- id: sec-2
+  theme_id: securite
+  display_order: 2
+  text: Faut-il instaurer des peines minimales pour les récidivistes ?
+  active: true
+  neutrality_review: *review
+
+- id: sec-3
+  theme_id: securite
+  display_order: 3
+  text: Faut-il étendre l'usage de la vidéosurveillance algorithmique ?
+  active: true
+  neutrality_review: *review
+
+- id: sec-4
+  theme_id: securite
+  display_order: 4
+  text: Faut-il légaliser la consommation de cannabis ?
+  active: true
+  neutrality_review: *review
+
+- id: imm-1
+  theme_id: immigration
+  display_order: 1
+  text: Faut-il durcir les conditions d'obtention d'un titre de séjour ?
+  active: true
+  neutrality_review: *review
+
+- id: imm-2
+  theme_id: immigration
+  display_order: 2
+  text: >-
+    Faut-il conditionner certaines prestations sociales à une durée minimale de
+    résidence ?
+  active: true
+  neutrality_review: *review
+
+- id: imm-3
+  theme_id: immigration
+  display_order: 3
+  text: >-
+    Faut-il augmenter le nombre de places d'hébergement pour les demandeurs
+    d'asile ?
+  active: true
+  neutrality_review: *review
+
+- id: imm-4
+  theme_id: immigration
+  display_order: 4
+  text: >-
+    Faut-il faciliter l'accès au marché du travail pour les demandeurs d'asile ?
+  active: true
+  neutrality_review: *review
+
+- id: eur-1
+  theme_id: europe
+  display_order: 1
+  text: Faut-il transférer davantage de compétences à l'Union européenne ?
+  active: true
+  neutrality_review: *review
+
+- id: eur-2
+  theme_id: europe
+  display_order: 2
+  text: Faut-il augmenter le budget de la défense nationale ?
+  active: true
+  neutrality_review: *review
+
+- id: eur-3
+  theme_id: europe
+  display_order: 3
+  text: >-
+    Faut-il subordonner les accords commerciaux au respect de normes
+    environnementales ?
+  active: true
+  neutrality_review: *review
+
+- id: eur-4
+  theme_id: europe
+  display_order: 4
+  text: >-
+    Faut-il rétablir des contrôles permanents aux frontières intérieures de
+    l'espace Schengen ?
+  active: true
+  neutrality_review: *review
+
+- id: san-1
+  theme_id: sante
+  display_order: 1
+  text: Faut-il augmenter le budget de l'hôpital public ?
+  active: true
+  neutrality_review: *review
+
+- id: san-2
+  theme_id: sante
+  display_order: 2
+  text: >-
+    Faut-il réguler l'installation des médecins dans les zones les mieux
+    pourvues ?
+  active: true
+  neutrality_review: *review
+
+- id: san-3
+  theme_id: sante
+  display_order: 3
+  text: >-
+    Faut-il augmenter la part des dépenses de santé remboursée par l'assurance
+    maladie ?
+  active: true
+  neutrality_review: *review
+
+- id: san-4
+  theme_id: sante
+  display_order: 4
+  text: Faut-il confier davantage de services publics à une gestion privée ?
+  active: true
+  neutrality_review: *review
+
+- id: edu-1
+  theme_id: education
+  display_order: 1
+  text: Faut-il augmenter le salaire des enseignants ?
+  active: true
+  neutrality_review: *review
+
+- id: edu-2
+  theme_id: education
+  display_order: 2
+  text: Faut-il renforcer l'autonomie des établissements scolaires ?
+  active: true
+  neutrality_review: *review
+
+- id: edu-3
+  theme_id: education
+  display_order: 3
+  text: Faut-il étendre le recours au numérique dans l'enseignement scolaire ?
+  active: true
+  neutrality_review: *review
+
+- id: edu-4
+  theme_id: education
+  display_order: 4
+  text: Faut-il allonger la durée du service national ?
+  active: true
+  neutrality_review: *review

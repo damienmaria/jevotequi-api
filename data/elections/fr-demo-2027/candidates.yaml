@@ -1,0 +1,43 @@
+# FICTIONAL candidates for the demonstration election.
+#
+# §9: `normalized_name` is lowercased, diacritics stripped, surname first, so
+# that alphabetical ordering is deterministic without depending on the
+# runtime's locale data.
+#
+# `official_order` is the order published by the authority. Here it is a
+# fictional draw order; it is what §24 uses to list candidates before any
+# comparison is run.
+
+- id: camille-aubert
+  election_id: fr-demo-2027
+  display_name: Camille Aubert
+  normalized_name: aubert camille
+  political_group: Rassemblement Démocratique (fictif)
+  official_order: 2
+  inclusion_status: included
+
+- id: noe-fontaine
+  election_id: fr-demo-2027
+  display_name: Noé Fontaine
+  normalized_name: fontaine noe
+  political_group: Alliance Écologiste (fictive)
+  official_order: 1
+  inclusion_status: included
+
+- id: sacha-moreau
+  election_id: fr-demo-2027
+  display_name: Sacha Moreau
+  normalized_name: moreau sacha
+  political_group: Union Républicaine (fictive)
+  official_order: 3
+  inclusion_status: included
+
+# §9: a registered candidate with no usable source is still listed, never
+# silently omitted. This one exercises the "not comparable" path end to end.
+- id: dominique-leroy
+  election_id: fr-demo-2027
+  display_name: Dominique Leroy
+  normalized_name: leroy dominique
+  political_group: Sans étiquette (fictif)
+  official_order: 4
+  inclusion_status: listed_without_data

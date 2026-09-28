@@ -1,0 +1,34 @@
+# Guideline §37. The data validation stage is the CI gate of ADR 0003: a merge
+# request carrying a position without a source, without a second pass, or
+# citing an undeclared source fails here, before the data reaches a database.
+
+image: node:22
+
+stages: [install, verify, build]
+
+cache:
+  key:
+    files: [package-lock.json]
+  paths: [node_modules/]
+
+install:
+  stage: install
+  script: npm ci
+
+typecheck:
+  stage: verify
+  script:
+    - npm ci
+    - npm run typecheck
+
+test:
+  stage: verify
+  script:
+    - npm ci
+    - npm test
+
+validate-data:
+  stage: verify
+  script:
+    - npm ci
+    - npm run validate:data

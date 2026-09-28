@@ -1,0 +1,58 @@
+# Guideline §10. Eight themes, four questions each.
+
+- id: economie
+  name: Économie et finances publiques
+  description: >-
+    Dépenses publiques, fiscalité, équilibre budgétaire, fiscalité des
+    entreprises.
+  display_order: 1
+  active: true
+
+- id: pouvoir-achat
+  name: Pouvoir d'achat et politique sociale
+  description: >-
+    Salaires, minima sociaux, retraites, logement.
+  display_order: 2
+  active: true
+
+- id: environnement
+  name: Environnement et énergie
+  description: >-
+    Mix énergétique, transports, politique climatique.
+  display_order: 3
+  active: true
+
+- id: securite
+  name: Sécurité et justice
+  description: >-
+    Moyens des forces de l'ordre, politique pénale, libertés publiques.
+  display_order: 4
+  active: true
+
+- id: immigration
+  name: Immigration et intégration
+  description: >-
+    Titres de séjour, asile, accès aux prestations et au travail.
+  display_order: 5
+  active: true
+
+- id: europe
+  name: Europe et affaires internationales
+  description: >-
+    Compétences européennes, défense, commerce, frontières.
+  display_order: 6
+  active: true
+
+- id: sante
+  name: Santé et services publics
+  description: >-
+    Hôpital, accès aux soins, remboursements, gestion des services publics.
+  display_order: 7
+  active: true
+
+- id: education
+  name: Éducation et société
+  description: >-
+    École, enseignants, numérique éducatif, service national.
+  display_order: 8
+  active: true

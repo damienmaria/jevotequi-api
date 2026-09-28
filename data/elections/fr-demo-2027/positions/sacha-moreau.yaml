@@ -1,0 +1,70 @@
+# FICTIONAL positions. Quotes are invented for the demonstration election.
+#
+# This candidate is documented on 22 of the 32 questions. It is the case that
+# matters most for §43: a thinly documented candidate can score high, because
+# they are only measured where they are documented. The coverage line is what
+# keeps that honest.
+
+candidate_id: sacha-moreau
+program:
+  id: prog-sacha-moreau
+  version_id: pv-sacha-moreau-v1
+  title: Programme officiel 2027
+  published_at: 2027-02-08
+
+sources:
+  - id: src-moreau-prog-v1
+    title: Programme officiel de Sacha Moreau, février 2027
+    url: https://example.invalid/moreau/programme-2027.pdf
+    source_type: official_program
+    published_at: 2027-02-08
+    retrieved_at: 2026-09-28
+    content_hash: 7e3b1def6048a25c9f70b3ea18d465c027ba9f31e58d6047cb2a9e70f81d3465
+    archived_copy_url: https://example.invalid/archive/moreau-programme-2027.pdf
+
+defaults: &d
+  coded_by: dm
+  coded_at: 2026-09-28
+  reviewed_by: dm
+  reviewed_at: 2026-09-29
+  valid_from: 2027-02-08
+  sources:
+    - source_id: src-moreau-prog-v1
+
+positions:
+  - { <<: *d, question_id: eco-1, position: 2, status: confirmed, quote: "La dépense publique sera ramenée sous son niveau actuel." }
+  - { <<: *d, question_id: eco-2, position: -2, status: confirmed, quote: "Aucune hausse d'impôt ne sera décidée pendant le mandat." }
+  - { <<: *d, question_id: eco-3, position: 2, status: confirmed, quote: "Les cotisations patronales seront allégées dès la première année." }
+  - { <<: *d, question_id: eco-4, position: 2, status: confirmed, quote: "Une règle d'équilibre budgétaire sera inscrite dans la loi organique." }
+
+  - { <<: *d, question_id: pa-1, position: -1, status: confirmed, quote: "Le salaire minimum suivra l'inflation, sans coup de pouce." }
+  - { <<: *d, question_id: pa-2, position: 2, status: confirmed, quote: "Le versement des minima sociaux sera conditionné à une activité hebdomadaire." }
+  - { <<: *d, question_id: pa-3, position: 2, status: confirmed, quote: "L'âge légal sera porté à un niveau supérieur." }
+  # pa-4 : le programme ne traite pas de l'encadrement des loyers.
+
+  - { <<: *d, question_id: env-1, position: 2, status: confirmed, quote: "Un programme de nouveaux réacteurs sera lancé sans délai." }
+  - { <<: *d, question_id: env-2, position: -2, status: confirmed, quote: "Nous suspendrons les nouveaux projets d'éolien terrestre." }
+  - { <<: *d, question_id: env-3, position: -2, status: confirmed, quote: "Nous demanderons l'abandon de l'échéance de 2035." }
+  # env-4 : taxe carbone aux frontières non abordée.
+
+  - { <<: *d, question_id: sec-1, position: 2, status: confirmed, quote: "Nous recruterons des policiers supplémentaires sur la voie publique." }
+  - { <<: *d, question_id: sec-2, position: 2, status: confirmed, quote: "Des peines minimales seront rétablies pour les récidivistes." }
+  - { <<: *d, question_id: sec-3, position: 1, status: confirmed, quote: "L'expérimentation de la vidéosurveillance algorithmique sera prolongée." }
+  - { <<: *d, question_id: sec-4, position: -2, status: confirmed, quote: "Nous nous opposons à toute légalisation du cannabis." }
+
+  - { <<: *d, question_id: imm-1, position: 2, status: confirmed, quote: "Les conditions de délivrance des titres de séjour seront durcies." }
+  - { <<: *d, question_id: imm-2, position: 2, status: confirmed, quote: "Certaines prestations seront soumises à une durée de résidence." }
+  # imm-3, imm-4 : hébergement et accès au travail non traités.
+
+  - { <<: *d, question_id: eur-1, position: -2, status: confirmed, quote: "Aucune nouvelle compétence ne sera transférée à l'Union." }
+  - { <<: *d, question_id: eur-2, position: 2, status: confirmed, quote: "Le budget de la défense sera porté à un niveau supérieur." }
+  # eur-3 : conditionnalité environnementale des accords non abordée.
+  - { <<: *d, question_id: eur-4, position: 2, status: confirmed, quote: "Des contrôles permanents seront rétablis aux frontières intérieures." }
+
+  # san-1 à san-3 : le programme ne détaille pas la politique de santé.
+  - { <<: *d, question_id: san-4, position: 2, status: confirmed, quote: "La gestion déléguée sera étendue à de nouveaux services publics." }
+
+  # edu-1 : la rémunération des enseignants n'est pas chiffrée.
+  - { <<: *d, question_id: edu-2, position: 2, status: confirmed, quote: "Les chefs d'établissement recruteront leur équipe pédagogique." }
+  # edu-3 : numérique éducatif non abordé.
+  - { <<: *d, question_id: edu-4, position: 2, status: confirmed, quote: "Le service national sera porté à six mois." }

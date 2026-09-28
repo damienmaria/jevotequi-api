@@ -1,0 +1,93 @@
+# FICTIONAL positions. Quotes are invented for the demonstration election.
+#
+# This candidate is documented on 28 of the 32 questions (29 entries, one uncertain), which exercises the
+# coverage display of §43: a partial score must never be shown alone.
+
+candidate_id: noe-fontaine
+program:
+  id: prog-noe-fontaine
+  version_id: pv-noe-fontaine-v2
+  title: Programme officiel 2027, version révisée
+  published_at: 2027-03-02
+
+sources:
+  - id: src-fontaine-prog-v2
+    title: Programme officiel de Noé Fontaine, mars 2027
+    url: https://example.invalid/fontaine/programme-2027-v2.pdf
+    source_type: official_program
+    published_at: 2027-03-02
+    retrieved_at: 2026-09-28
+    content_hash: 9c17be45f0a82d6319e7cb0458af23d1760be95c4218fa03d6e7b19240cf58a2
+    archived_copy_url: https://example.invalid/archive/fontaine-programme-2027-v2.pdf
+  - id: src-fontaine-debat
+    title: Débat télévisé du 18 mars 2027
+    url: https://example.invalid/fontaine/debat-2027-03-18
+    source_type: debate
+    published_at: 2027-03-18
+    retrieved_at: 2026-09-28
+    content_hash: 2b6d90e4c3af17582049db6e13f85ca70d24e9b8516caf0397e5d81b6a4c2390
+    archived_copy_url: https://example.invalid/archive/fontaine-debat-2027-03-18.html
+
+defaults: &d
+  coded_by: dm
+  coded_at: 2026-09-28
+  reviewed_by: dm
+  reviewed_at: 2026-09-29
+  valid_from: 2027-03-02
+  sources:
+    - source_id: src-fontaine-prog-v2
+
+positions:
+  - { <<: *d, question_id: eco-1, position: -2, status: confirmed, quote: "La dépense publique doit augmenter pour financer la transition." }
+  - { <<: *d, question_id: eco-2, position: 2, status: confirmed, quote: "Nous instaurerons une contribution sur les très hauts patrimoines." }
+  - { <<: *d, question_id: eco-3, position: -1, status: confirmed, quote: "Les allègements de cotisations seront conditionnés à des engagements écologiques." }
+  - { <<: *d, question_id: eco-4, position: -2, status: confirmed, quote: "Une règle de déficit serait incompatible avec l'investissement nécessaire." }
+
+  - { <<: *d, question_id: pa-1, position: 2, status: confirmed, quote: "Le salaire minimum sera revalorisé et indexé." }
+  - { <<: *d, question_id: pa-2, position: -2, status: confirmed, quote: "Les minima sociaux seront versés sans contrepartie d'activité." }
+  - { <<: *d, question_id: pa-3, position: -2, status: confirmed, quote: "Nous rétablirons l'âge légal antérieur." }
+  # No documented position: §43 excludes it and lowers the coverage.
+  # pa-4 : aucune source exploitable trouvée sur l'encadrement des loyers.
+
+  - { <<: *d, question_id: env-1, position: -2, status: confirmed, quote: "Aucun nouveau réacteur ne sera engagé." }
+  - { <<: *d, question_id: env-2, position: 2, status: confirmed, quote: "L'éolien terrestre sera doublé d'ici la fin du mandat." }
+  - { <<: *d, question_id: env-3, position: 2, status: confirmed, quote: "L'interdiction de 2035 sera avancée autant que possible." }
+  - { <<: *d, question_id: env-4, position: 2, status: confirmed, quote: "Nous porterons une taxe carbone aux frontières de l'Union." }
+
+  - { <<: *d, question_id: sec-1, position: 0, status: confirmed, quote: "Les effectifs seront redéployés, à budget constant." }
+  - { <<: *d, question_id: sec-2, position: -2, status: confirmed, quote: "Nous nous opposons à toute peine plancher." }
+  - { <<: *d, question_id: sec-3, position: -2, status: confirmed, quote: "La vidéosurveillance algorithmique sera interdite." }
+  - { <<: *d, question_id: sec-4, position: 2, status: confirmed, quote: "La consommation de cannabis sera légalisée et encadrée." }
+
+  - { <<: *d, question_id: imm-1, position: -2, status: confirmed, quote: "Les conditions de séjour seront assouplies." }
+  - { <<: *d, question_id: imm-2, position: -2, status: confirmed, quote: "Aucune condition de durée de résidence ne sera introduite." }
+  - { <<: *d, question_id: imm-3, position: 2, status: confirmed, quote: "Nous ouvrirons les places d'hébergement nécessaires à tous les demandeurs." }
+  - { <<: *d, question_id: imm-4, position: 2, status: confirmed, quote: "Le droit au travail sera immédiat pour les demandeurs d'asile." }
+
+  - { <<: *d, question_id: eur-1, position: 2, status: confirmed, quote: "Nous soutenons une Union fédérale en matière climatique et sociale." }
+  # eur-2 : le programme ne traite pas du budget de la défense.
+  - { <<: *d, question_id: eur-3, position: 2, status: confirmed, quote: "Aucun accord commercial sans conditionnalité climatique." }
+  - { <<: *d, question_id: eur-4, position: -2, status: confirmed, quote: "Nous refusons le rétablissement de contrôles permanents dans Schengen." }
+
+  - { <<: *d, question_id: san-1, position: 2, status: confirmed, quote: "Un plan pluriannuel augmentera le budget hospitalier." }
+  - { <<: *d, question_id: san-2, position: 2, status: confirmed, quote: "L'installation sera régulée dans les zones sur-dotées." }
+  - { <<: *d, question_id: san-3, position: 2, status: confirmed, quote: "Nous tendrons vers un remboursement intégral des soins courants." }
+  - { <<: *d, question_id: san-4, position: -2, status: confirmed, quote: "Les services publics resteront en gestion publique." }
+
+  - { <<: *d, question_id: edu-1, position: 2, status: confirmed, quote: "Les salaires enseignants seront augmentés dès la première rentrée." }
+  # edu-2 : autonomie des établissements non abordée dans le programme.
+  - question_id: edu-3
+    position: -1
+    status: uncertain
+    quote: "Nous limiterons l'exposition des plus jeunes aux écrans."
+    note: >-
+      La citation porte sur l'exposition aux écrans, pas explicitement sur le
+      numérique pédagogique. Interprétation nécessaire, donc `uncertain` (§14).
+    sources:
+      - source_id: src-fontaine-debat
+        locator: "42:15"
+    coded_by: dm
+    coded_at: 2026-09-28
+    reviewed_by: null
+    valid_from: 2027-03-18
+  - { <<: *d, question_id: edu-4, position: -2, status: confirmed, quote: "Nous mettrons fin au service national universel." }

@@ -1,0 +1,86 @@
+# FICTIONAL positions. Quotes are invented for the demonstration election.
+#
+# §14: every value is justified by a quoted passage. §16: no position without a
+# source. §42/§14 degraded mode: a position coded by one person is born
+# `uncertain` and becomes `confirmed` only after a second pass.
+
+candidate_id: camille-aubert
+program:
+  id: prog-camille-aubert
+  version_id: pv-camille-aubert-v1
+  title: Programme officiel 2027
+  published_at: 2027-01-15
+
+sources:
+  - id: src-aubert-prog-v1
+    title: Programme officiel de Camille Aubert, janvier 2027
+    url: https://example.invalid/aubert/programme-2027.pdf
+    source_type: official_program
+    published_at: 2027-01-15
+    retrieved_at: 2026-09-28
+    content_hash: 4f8a21c9b7e0d3a65f1c8e92b04d7a3e6c5901fbd82743ae1069cb5d3f27e840
+    archived_copy_url: https://example.invalid/archive/aubert-programme-2027.pdf
+
+defaults: &d
+  coded_by: dm
+  coded_at: 2026-09-28
+  reviewed_by: dm
+  reviewed_at: 2026-09-29
+  valid_from: 2027-01-15
+  sources:
+    - source_id: src-aubert-prog-v1
+
+positions:
+  - { <<: *d, question_id: eco-1, position: -1, status: confirmed, quote: "Nous refusons une baisse indifférenciée de la dépense publique." }
+  - { <<: *d, question_id: eco-2, position: 2, status: confirmed, quote: "Nous créerons une tranche supplémentaire d'impôt sur le revenu." }
+  - { <<: *d, question_id: eco-3, position: 0, status: confirmed, quote: "Les allègements existants seront évalués, ni étendus ni supprimés." }
+  - { <<: *d, question_id: eco-4, position: -2, status: confirmed, quote: "Aucune règle budgétaire automatique ne sera inscrite dans la loi." }
+
+  - { <<: *d, question_id: pa-1, position: 2, status: confirmed, quote: "Le salaire minimum sera porté à un niveau supérieur dès la première année." }
+  - { <<: *d, question_id: pa-2, position: -1, status: confirmed, quote: "Nous ne conditionnerons pas le revenu de solidarité à une activité obligatoire." }
+  - { <<: *d, question_id: pa-3, position: -2, status: confirmed, quote: "Nous abrogerons le report de l'âge légal." }
+  - { <<: *d, question_id: pa-4, position: 2, status: confirmed, quote: "L'encadrement des loyers sera généralisé à toutes les zones tendues puis étendu." }
+
+  - { <<: *d, question_id: env-1, position: 1, status: confirmed, quote: "La construction de nouveaux réacteurs sera poursuivie, à un rythme maîtrisé." }
+  - { <<: *d, question_id: env-2, position: 1, status: confirmed, quote: "Nous soutiendrons le développement de l'éolien terrestre concerté avec les communes." }
+  - { <<: *d, question_id: env-3, position: 1, status: confirmed, quote: "Nous maintiendrons l'échéance de 2035 en accompagnant les ménages." }
+  - { <<: *d, question_id: env-4, position: 2, status: confirmed, quote: "Nous défendrons un mécanisme d'ajustement carbone aux frontières." }
+
+  - { <<: *d, question_id: sec-1, position: 1, status: confirmed, quote: "Les effectifs de police de proximité seront renforcés." }
+  - { <<: *d, question_id: sec-2, position: -1, status: confirmed, quote: "Nous préférons l'individualisation des peines à des planchers automatiques." }
+  - { <<: *d, question_id: sec-3, position: -2, status: confirmed, quote: "Nous mettrons fin à l'expérimentation de la vidéosurveillance algorithmique." }
+  - { <<: *d, question_id: sec-4, position: 1, status: confirmed, quote: "Nous ouvrirons la voie à un cadre légal de vente encadrée." }
+
+  - { <<: *d, question_id: imm-1, position: -1, status: confirmed, quote: "Nous ne durcirons pas les conditions générales de délivrance des titres." }
+  - { <<: *d, question_id: imm-2, position: -2, status: confirmed, quote: "Aucune prestation ne sera conditionnée à une durée de résidence." }
+  - { <<: *d, question_id: imm-3, position: 2, status: confirmed, quote: "Le parc d'hébergement pour demandeurs d'asile sera augmenté." }
+  - { <<: *d, question_id: imm-4, position: 2, status: confirmed, quote: "L'accès au travail sera ouvert dès le dépôt de la demande d'asile." }
+
+  - { <<: *d, question_id: eur-1, position: 1, status: confirmed, quote: "Nous soutenons de nouvelles compétences européennes en matière sociale." }
+  - { <<: *d, question_id: eur-2, position: 1, status: confirmed, quote: "L'effort de défense sera poursuivi à son rythme actuel." }
+  - { <<: *d, question_id: eur-3, position: 2, status: confirmed, quote: "Aucun accord commercial ne sera ratifié sans clause environnementale contraignante." }
+  - { <<: *d, question_id: eur-4, position: -1, status: confirmed, quote: "Nous privilégions le renforcement des frontières extérieures à des contrôles intérieurs permanents." }
+
+  - { <<: *d, question_id: san-1, position: 2, status: confirmed, quote: "Le budget de l'hôpital public sera augmenté chaque année du quinquennat." }
+  - { <<: *d, question_id: san-2, position: 1, status: confirmed, quote: "Un conventionnement sélectif sera instauré dans les zones les mieux pourvues." }
+  - { <<: *d, question_id: san-3, position: 2, status: confirmed, quote: "Nous augmenterons la part remboursée par l'assurance maladie." }
+  - { <<: *d, question_id: san-4, position: -2, status: confirmed, quote: "Aucun nouveau service public ne sera confié à une gestion privée." }
+
+  - { <<: *d, question_id: edu-1, position: 2, status: confirmed, quote: "La rémunération des enseignants sera revalorisée dès la rentrée." }
+  # §14: hesitation between two values is recorded as uncertain, never guessed.
+  - question_id: edu-2
+    position: 0
+    status: uncertain
+    quote: "Les établissements disposeront de marges d'organisation accrues."
+    note: >-
+      Le programme évoque des « marges d'organisation » sans préciser s'il
+      s'agit d'autonomie au sens de la question. Codage entre 0 et +1 non
+      tranché ; reste exclu du calcul tant qu'une source plus précise manque.
+    sources:
+      - source_id: src-aubert-prog-v1
+    coded_by: dm
+    coded_at: 2026-09-28
+    reviewed_by: null
+    valid_from: 2027-01-15
+  - { <<: *d, question_id: edu-3, position: 0, status: confirmed, quote: "Le numérique éducatif sera stabilisé, ni étendu ni réduit." }
+  - { <<: *d, question_id: edu-4, position: -1, status: confirmed, quote: "Nous ne prévoyons pas d'allonger la durée du service national." }
