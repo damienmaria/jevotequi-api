@@ -16,9 +16,8 @@ npm test
 npm run validate:data
 ```
 
-No database is required to run the API: political data is loaded from
-`data/elections/` at startup (ADR 0003). PostgreSQL is for the read model and
-is not yet wired in.
+No database, no Docker, no migrations (ADR 0004). Political data is loaded from
+`data/elections/` at startup (ADR 0003), and nothing else is persisted.
 
 ## Layout
 
@@ -31,7 +30,7 @@ src/data/               political data loading and cross-file validation
 src/http/app.ts         the HTTP pipeline
 src/http/redaction.ts   the §32 / §47 privacy guarantee
 data/elections/         the political data itself, versioned (ADR 0003)
-prisma/                 read-model schema, plus the constraints Prisma cannot express
+scripts/validate-data.ts the CI gate — the only enforcement of §16 and §20
 ```
 
 ## Three things that are easy to break
